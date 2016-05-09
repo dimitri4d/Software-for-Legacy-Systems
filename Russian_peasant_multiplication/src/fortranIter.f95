@@ -1,0 +1,45 @@
+!
+! Dimitri Frederick
+! Cis3190 A4
+! 
+! Fortran
+! Itterative russian peasant Multiplication
+
+program main
+    implicit none
+    integer(kind=8) :: m, n,p
+
+    write (*,*) 'enter two numbers'
+    read (*,*) m,n
+    p=0
+    call peasantMult(m,n,p)
+    print *, p
+   
+end program main
+
+
+subroutine peasantMult(m, n, p)
+	integer*8, intent(inout) :: m, n, p
+	
+	do while (m >= 1)
+		! m is even, double n, halve m, no addition to sum
+		if ((m > 1) .and. (mod(m,2)==0 ))then
+			m = m / 2
+			n = n * 2
+		end if
+	
+		! m is odd, add n addition to sum, double n, halve m
+		if ((m > 1) .and. (mod(m,2)==1 )) then
+			p = p + n
+			m = m / 2
+			n = n * 2
+		end if
+		
+		if(m ==1 )then
+			p = p + n
+			exit
+		end if
+	end do
+	
+	return
+end subroutine peasantMult
